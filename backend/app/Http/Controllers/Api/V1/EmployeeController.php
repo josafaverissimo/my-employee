@@ -25,18 +25,16 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validation = $this->validation($request->all(), [
             "name" => "required|max:100",
             "email" => "required|email|max:100",
-            "cpf" => "required|unique:employee_entries|max:14",
-            "phone" => "required|max:15",
+            "cpf" => "required|unique:employee_entries|max:14|min:14",
+            "phone" => "required|max:15|min:15",
         ]);
 
-        if($validator->fails()) {
-            return $validator->errors();
-        }
+        if(!$validation['success']) return $validation['errors'];
 
-        $fieldsValidated = $validator->validated();
+        $fieldsValidated = $validation["fieldsValidated"];
 
         try {
             EmployeeEntry::create($fieldsValidated);
