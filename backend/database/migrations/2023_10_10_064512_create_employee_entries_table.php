@@ -14,18 +14,20 @@ return new class extends Migration
         /**
          * A tabela criada a seguir deverá armazenar os registros dos empregados
          */
-        Schema::create('employees_entries', function (Blueprint $table) {
+        Schema::create('employee_entries', function (Blueprint $table) {
             $table->id();
 
             /**
              * As colunas name e email devem ter o tamanho de 100 caracteres e não podem ter o valor null
              * A coluna cpf deve ter 14 caracteres e não pode ter o valor null
              * A coluna phone deve ter 15 caracteres e pode ter o valor null
+             * A coluna validate_at serve para indicar se o registro foi validad ou não
              */
             $table->string("name", 100)->nullable(false);
             $table->string("email", 100)->nullable(false);
-            $table->string("cpf", 14)->nullable(false);
+            $table->string("cpf", 14)->nullable(false)->unique();
             $table->string("phone", 15);
+            $table->dateTime("validate_at")->nullable();
 
             $table->timestamps();
         });
@@ -36,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('employees_entries');
+        Schema::dropIfExists('employee_entries');
     }
 };

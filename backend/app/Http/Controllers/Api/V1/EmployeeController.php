@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\EmployeeEntry;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use App\Models\Employee;
 
 class EmployeeController extends Controller
 {
@@ -13,7 +14,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return Employee::select('name as username', 'email as useremail')->get();
+        return EmployeeEntry::all();
     }
 
     /**
@@ -21,7 +22,32 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        Employee::create($request->all());
+        $validator = Validator::make($request->all(), [
+            "name" => "required|max:100",
+            "email" => "required|email|max:100",
+            "cpf" => "required|unique:employee_entries|max:14",
+            "phone" => "required|max:15",
+        ]);
+
+        if($validator->fails()) {
+            return $validator->errors();
+        }
+
+        $fieldsValidated = $validator->validated();
+
+        try {
+            EmployeeEntry::create($fieldsValidated);
+
+            return response()->json([
+                'message' => 'Entry created',
+                'status' => true
+            ]);
+        } catch(\Exception $exception) {
+            return response()->json([
+                'message' => 'Entry not created',
+                'status' => false
+            ]);
+        }
     }
 
     /**
@@ -29,7 +55,7 @@ class EmployeeController extends Controller
      */
     public function show(string $id)
     {
-        return Employee::findOrFail($id);
+        //
     }
 
     /**
@@ -37,9 +63,7 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $employee = Employee::findOrFail($id);
-
-        $employee->update($request->all());
+        //
     }
 
     /**
@@ -47,8 +71,6 @@ class EmployeeController extends Controller
      */
     public function destroy(string $id)
     {
-        $employee = Employee::findOrFail($id);
-
-        $employee->delete();
+        //
     }
 }
