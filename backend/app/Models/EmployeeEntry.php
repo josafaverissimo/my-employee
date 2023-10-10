@@ -13,6 +13,8 @@ class EmployeeEntry extends Model
         'name',
         'email',
         'cpf',
-        'phone'
+        'phone',
+        'is_valid',
+        'validated_at'
     ];
 }

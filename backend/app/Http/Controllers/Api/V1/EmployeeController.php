@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\EmployeeEntry;
+use App\Traits\HasValidation;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
+    use HasValidation;
+
     /**
      * Display a listing of the resource.
      */
@@ -48,5 +51,27 @@ class EmployeeController extends Controller
                 'status' => false
             ]);
         }
+    }
+
+    public function validateEntry(Request $request, int $id)
+    {
+        $validation = $this->validation($request->all(), [
+            'is_valid' => 'required|in:0,1|max:1|min:1'
+        ]);
+
+        if(!$validation['success']) return $validation['errors'];
+
+        $isValidFieldValue = $validation["fieldsValidated"]["is_valid"];
+        $employeeEntry = EmployeeEntry::find($id);
+
+        $updated = $employeeEntry->update([
+            'is_valid' => $isValidFieldValue,
+            'validated_at' => date('Y-m-d H:i:s')
+        ]);
+
+        return response()->json([
+            'message' => $updated ? 'Employee validated' : 'Employee not validated',
+            'success' => $updated
+        ]);
     }
 }
