@@ -1,0 +1,24 @@
+div.form-wrapper {
+  width: 70vw;
+  box-shadow: 5px 11px 31px 0 rgba(0,0,0,0.2);
+}
+
+div.form-wrapper form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+div.form-wrapper form div.input {
+  display: flex;
+  padding: 16px;
+}
+
+div.form-wrapper form div.input label {
+  width: 3%;
+  padding-right: 16px;
+}
+
+div.form-wrapper form div.input input {
+  width: 100%;
+}
