@@ -9,16 +9,57 @@ div.form-wrapper form {
   gap: 20px;
 }
 
+
+
 div.form-wrapper form div.input {
   display: flex;
+}
+
+div.form-wrapper form div.input-wrapper {
   padding: 16px;
+}
+
+div.form-wrapper form div.input-wrapper span {
+  font-size: 0.9em;
 }
 
 div.form-wrapper form div.input label {
   width: 3%;
   padding-right: 16px;
+  align-self: center;
 }
 
 div.form-wrapper form div.input input {
   width: 100%;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  padding: 5px 6px;
+  margin: 0 6px;
+}
+
+div.form-wrapper form button[type="submit"] {
+  border: none;
+  font-size: 1.4em;
+  padding: 16px;
+  background-color: rgba(0,0,0,.1);
+  cursor: pointer;
+}
+
+div.form-wrapper form div.input-checkbox div {
+  display: flex;
+  margin-bottom: 4px;
+}
+
+div.form-wrapper form div.input-checkbox label {
+  align-self: center;
+}
+
+div.form-wrapper form div.input-checkbox-wrapper span {
+  font-size: 0.9em;
+}
+
+div.form-wrapper form div.input-checkbox input {
+  padding: 10px;
+  width: 1.3em;
+  height: 1.3em;
 }

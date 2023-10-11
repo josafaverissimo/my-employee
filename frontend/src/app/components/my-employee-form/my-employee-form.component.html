@@ -1,39 +1,158 @@
 <h1>Ponto eletrônico</h1>
 
 <div class="form-wrapper">
-  <form>
-    <div class="input">
-      <label for="employee-name">Nome</label>
-      <input type="text" name="employee-name" id="employee-name">
-    </div>
+  <form (ngSubmit)="employeeFormSubmitHandler()">
+    <div class="flex">
+      <div class="w-80">
+        <div class="input-wrapper">
+          <div class="input">
+            <label for="employee-name">Nome</label>
+            <input
+              type="text"
+              name="employee-name"
+              id="employee-name"
+              required
+              [(ngModel)]="formInputsValues.employeeName"
+            >
+          </div>
+          <span class="error" [ngStyle]="{color: formInputsValidateTextColors.employeeName}">Este campo é obrigatório</span>
+        </div>
 
-    <div class="input">
-      <label for="employee-email">Email</label>
-      <input type="text" name="employee-email" id="employee-email">
-    </div>
+        <div class="input-wrapper">
+          <div class="input">
+            <label for="employee-email">Email</label>
+            <input
+              type="email"
+              name="employee-email"
+              id="employee-email"
+              required
+              [(ngModel)]="formInputsValues.employeeEmail"
+            >
+          </div>
+          <span [ngStyle]="{color: formInputsValidateTextColors.employeeEmail}">Este campo é obrigatório</span>
+          <br>
+          <span
+            style="color: red"
+            [hidden]="formInputsValidateExtraMessageHidden.employeeEmail"
+          >
+            Insira um email válido
+          </span>
+        </div>
 
-    <div class="input">
-      <label for="employee-cpf">Cpf</label>
-      <input type="text" name="employee-cpf" id="employee-cpf">
-    </div>
+        <div class="input-wrapper">
+          <div class="input">
+            <label for="employee-cpf">Cpf</label>
+            <input
+              type="text"
+              name="employee-cpf"
+              id="employee-cpf"
+              mask="000.000.000-00"
+              required
+              [(ngModel)]="formInputsValues.employeeCpf"
+            >
+          </div>
+          <span [ngStyle]="{color: formInputsValidateTextColors.employeeCpf}">Este campo é obrigatório</span>
+        </div>
 
-    <div class="input">
-      <label for="employee-phone">Phone</label>
-      <input type="text" name="employee-phone" id="employee-phone">
-    </div>
+        <div class="input-wrapper">
+          <div class="input">
+            <label for="employee-phone">Phone</label>
+            <input
+              type="text"
+              name="employee-phone"
+              id="employee-phone"
+              mask="(00)
+              00000-0000"
+              [(ngModel)]="formInputsValues.employeePhone"
+            >
+          </div>
+        </div>
+      </div>
 
-    <div class="input-checkbox">
-      <label for="employee-knowledge">Conhcimentos</label>
-      <input type="checkbox" name="employee-knowledge" id="employee-knowledge">
+      <div class="input-checkbox-wrapper w-20 align-self-center">
+        <div class="input-checkbox">
+          <span>Conhecimentos</span>
 
-      <label for="employee-knowledge">Git</label>
-      <input type="checkbox" name="employee-knowledge" id="employee-knowledge">
+          <div>
+            <input
+              type="checkbox"
+              name="employee-knowledge"
+              id="employee-knowledge-git"
+              [checked]="knowledge.git"
+              (change)="knowledgeHandler('git')"
+            >
+            <label for="employee-knowledge-git">Git</label>
+          </div>
 
-      <label for="employee-knowledge">React</label>
-      <input type="checkbox" name="employee-knowledge" id="employee-knowledge">
+          <div>
+            <input
+              type="checkbox"
+              name="employee-knowledge"
+              id="employee-knowledge-react"
+              [checked]="knowledge.react"
+              (change)="knowledgeHandler('react')"
+            >
+            <label for="employee-knowledge-react">React</label>
+          </div>
 
-      <label for="employee-knowledge">php</label>
-      <input type="checkbox" name="employee-knowledge" id="employee-knowledge">
+          <div>
+            <input
+              type="checkbox"
+              name="employee-knowledge"
+              id="employee-knowledge-php"
+              [checked]="knowledge.php"
+              (change)="knowledgeHandler('php')"
+            >
+            <label for="employee-knowledge-php">PHP</label>
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              name="employee-knowledge"
+              id="employee-knowledge-nodejs"
+              [checked]="knowledge.nodejs"
+              (change)="knowledgeHandler('nodejs')"
+            >
+            <label for="employee-knowledge-nodejs">NodeJS</label>
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              name="employee-knowledge"
+              id="employee-knowledge-devops"
+              [checked]="knowledge.devops"
+              (change)="knowledgeHandler('devops')"
+            >
+            <label for="employee-knowledge-devops">DevOps</label>
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              name="employee-knowledge"
+              id="employee-knowledge-database"
+              [checked]="knowledge.database"
+              (change)="knowledgeHandler('database')"
+            >
+            <label for="employee-knowledge-database">Banco de dados</label>
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              name="employee-knowledge"
+              id="employee-knowledge-typescript"
+              [checked]="knowledge.typescript"
+              (change)="knowledgeHandler('typescript')"
+            >
+            <label for="employee-knowledge-typescript">TypeScript</label>
+          </div>
+        </div>
+
+        <span [ngStyle]="{color: formInputsValidateTextColors.employeeKnowledge}">Marque pelo menos 1 e no máximo 3</span>
+      </div>
     </div>
 
     <button type="submit">Registrar</button>
