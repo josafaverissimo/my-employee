@@ -7,6 +7,14 @@ body {
   display: flex;
 }
 
+.flex-column {
+  flex-direction: column;
+}
+
+.p-0 {
+  padding: 0
+}
+
 .w-80 {
   width: 80%;
 }

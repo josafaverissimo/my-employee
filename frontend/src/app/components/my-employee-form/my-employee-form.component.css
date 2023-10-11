@@ -16,7 +16,7 @@ div.form-wrapper form div.input {
 }
 
 div.form-wrapper form div.input-wrapper {
-  padding: 16px;
+  padding: 10px 16px;
 }
 
 div.form-wrapper form div.input-wrapper span {
@@ -52,13 +52,19 @@ div.form-wrapper form div.input-checkbox div {
 
 div.form-wrapper form div.input-checkbox label {
   align-self: center;
+  cursor: pointer;
 }
 
 div.form-wrapper form div.input-checkbox-wrapper span {
   font-size: 0.9em;
 }
 
+div.form-wrapper form div.input-checkbox {
+  cursor: pointer;
+}
+
 div.form-wrapper form div.input-checkbox input {
+  cursor: pointer;
   padding: 10px;
   width: 1.3em;
   height: 1.3em;

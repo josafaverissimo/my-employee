@@ -29,14 +29,16 @@
               [(ngModel)]="formInputsValues.employeeEmail"
             >
           </div>
-          <span [ngStyle]="{color: formInputsValidateTextColors.employeeEmail}">Este campo é obrigatório</span>
-          <br>
-          <span
-            style="color: red"
-            [hidden]="formInputsValidateExtraMessageHidden.employeeEmail"
-          >
-            Insira um email válido
-          </span>
+
+          <div class="flex flex-column">
+            <span [ngStyle]="{color: formInputsValidateTextColors.employeeEmail}">Este campo é obrigatório</span>
+            <span
+              style="color: red"
+              [hidden]="formInputsValidateExtraMessageHidden.employeeEmail"
+            >
+              Insira um email válido
+            </span>
+          </div>
         </div>
 
         <div class="input-wrapper">
@@ -51,7 +53,15 @@
               [(ngModel)]="formInputsValues.employeeCpf"
             >
           </div>
-          <span [ngStyle]="{color: formInputsValidateTextColors.employeeCpf}">Este campo é obrigatório</span>
+          <div class="flex flex-column">
+            <span [ngStyle]="{color: formInputsValidateTextColors.employeeCpf}">Este campo é obrigatório</span>
+            <span
+              style="color: red"
+              [hidden]="formInputsValidateExtraMessageHidden.employeeCpf"
+            >
+              O campo está incompleto
+            </span>
+          </div>
         </div>
 
         <div class="input-wrapper">
@@ -61,11 +71,17 @@
               type="text"
               name="employee-phone"
               id="employee-phone"
-              mask="(00)
-              00000-0000"
+              mask="(00) 00000-0000"
               [(ngModel)]="formInputsValues.employeePhone"
             >
           </div>
+
+          <span
+            style="color: red"
+            [hidden]="formInputsValidateExtraMessageHidden.employeePhone"
+          >
+            O campo está incompleto
+          </span>
         </div>
       </div>
 
