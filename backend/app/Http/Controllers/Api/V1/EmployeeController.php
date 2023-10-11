@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\EmployeeEntry;
+use App\Models\EmployeeKnowledge;
+use App\Models\Knowledge;
 use App\Traits\HasValidation;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -25,28 +26,46 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $validation = $this->validation($request->all(), [
-            "name" => "required|max:100",
-            "email" => "required|email|max:100",
-            "cpf" => "required|unique:employee_entries|max:14|min:14",
-            "phone" => "required|max:15|min:15",
-        ]);
+        $fields = $request->all();
+        $rules = [
+            'name' => 'required|max:100',
+            'email' => 'required|email|max:100',
+            'cpf' => 'required|unique:employee_entries|max:14|min:14',
+            'knowledge' => 'required|min:1|max:3'
+        ];
+
+        if(!empty($fields['phone'])) $rules['phone'] = "max:15|min:15";
+
+        $validation = $this->validation($request->all(), $rules);
 
         if(!$validation['success']) return $validation['errors'];
 
         $fieldsValidated = $validation["fieldsValidated"];
 
         try {
-            EmployeeEntry::create($fieldsValidated);
+            $lastInsertedEmployeeEntryId = EmployeeEntry::create($fieldsValidated)->id;
+            $knowledgeIds = array_map(function($knowledgeDescription) {
+                if($knowledgeDescription === 'database') $knowledgeDescription = 'banco de dados';
+
+                return Knowledge::select('id')->where('description', $knowledgeDescription)->first()->id;
+            }, $fieldsValidated['knowledge']);
+
+            foreach($knowledgeIds as $knowledgeId) {
+                EmployeeKnowledge::create([
+                    'employee_id' => $lastInsertedEmployeeEntryId,
+                    'knowledge_id' => $knowledgeId
+                ]);
+            }
 
             return response()->json([
                 'message' => 'Entry created',
                 'status' => true
             ]);
-        } catch(\Exception $exception) {
+        } catch(\Illuminate\Database\QueryException $exception) {
             return response()->json([
                 'message' => 'Entry not created',
-                'status' => false
+                'status' => false,
+                'error' => $exception->getMessage()
             ]);
         }
     }

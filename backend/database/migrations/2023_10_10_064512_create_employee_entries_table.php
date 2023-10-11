@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string("name", 100)->nullable(false);
             $table->string("email", 100)->nullable(false);
             $table->string("cpf", 14)->nullable(false)->unique();
-            $table->string("phone", 15);
+            $table->string("phone", 15)->nullable();
             $table->dateTime("validated_at")->nullable();
             $table->boolean("is_valid")->nullable();
 
