@@ -24,7 +24,7 @@ export class MyEmployeeEntriesListComponent {
           employeeEntry.email,
           employeeEntry.cpf,
           employeeEntry.phone ?? "",
-          ""
+          employeeEntry.knowledge.join(", ")
         ]
       )
     })

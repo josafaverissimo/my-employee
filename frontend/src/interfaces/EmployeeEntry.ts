@@ -6,6 +6,7 @@ export interface EmployeeEntry {
   phone: string|null,
   validated_at: string|null,
   is_valid: number|null,
+  knowledge: string[],
   created_at: string,
   updated_at: string
 }
