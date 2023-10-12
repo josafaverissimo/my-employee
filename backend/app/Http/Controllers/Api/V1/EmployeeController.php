@@ -53,6 +53,8 @@ class EmployeeController extends Controller
         $fieldsValidated = $validation["fieldsValidated"];
 
         try {
+            $fieldsValidated['name'] = mb_convert_case($fieldsValidated['name'], MB_CASE_LOWER);
+
             $lastInsertedEmployeeEntryId = EmployeeEntry::create($fieldsValidated)->id;
             $knowledgeIds = array_map(function($knowledgeDescription) {
                 if($knowledgeDescription === 'database') $knowledgeDescription = 'banco de dados';
