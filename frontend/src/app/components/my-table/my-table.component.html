@@ -1,3 +1,8 @@
+<div class="filter-wrapper" *ngIf="hasFilter">
+  <input type="text" [(ngModel)]="filterValue" (input)="filterForm()">
+  <button class="btn" (click)="clearFilterForm()">Limpar</button>
+</div>
+
 <table>
   <thead>
     <tr>

@@ -31,3 +31,16 @@ table tbody tr:hover {
   cursor: pointer;
   background: #cfcfcf;
 }
+
+.filter-wrapper {
+  width: 100%;
+  display: flex;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.filter-wrapper input {
+  width: 100%;
+  padding: 0 16px;
+}
+

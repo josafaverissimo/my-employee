@@ -1,5 +1,10 @@
 <h1>Validar: <em style="font-style: italic">{{ employeeName }}</em></h1>
 
 <div class="table-wrapper">
-  <app-my-table [actions]="employeeEntryActions" [columns]="employeeEntryTableColumns" [rows]="employeeEntryTableRow"></app-my-table>
+  <app-my-table
+    [actions]="employeeEntryActions"
+    [columns]="employeeEntryTableColumns"
+    [rows]="employeeEntryTableRow"
+    [hasFilter]="false"
+  />
 </div>
