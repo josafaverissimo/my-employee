@@ -180,6 +180,7 @@ export class MyEmployeeFormComponent {
 
     /**
      * O código abaixo apenas verifica se o campo name está vazio
+     * se estiver ok, remove as mensagens de erros
      */
     if(name === '') {
       this.formInputsValidateTextColors.employeeName = 'red';
@@ -190,6 +191,7 @@ export class MyEmployeeFormComponent {
 
     /**
      * O código verifica se o campo email está vazio e se é um valor válido
+     * se estiver ok, remove as mensagens de erros
      */
     if(email === '') {
       this.formInputsValidateTextColors.employeeEmail = 'red';
@@ -205,6 +207,10 @@ export class MyEmployeeFormComponent {
       this.formInputsValidateExtraMessageHidden.employeeEmail = true
     }
 
+    /**
+     * O código abaixo verifica se o campo cpf está vazio e se é menor que 14 (MIN_CPF_LEGNTH
+     * se estiver ok, remove as mensagens de erros
+     */
     if(cpf === '') {
       this.formInputsValidateTextColors.employeeCpf = 'red'
       validationFailed = false
@@ -218,6 +224,11 @@ export class MyEmployeeFormComponent {
       this.formInputsValidateExtraMessageHidden.employeeCpf = true
     }
 
+    /**
+     * O código abaixo apenas verifica se o campo phone está vazio
+     * e se estiver preenchido, exige que seja corrigido corretamente
+     * se estiver ok, remove as mensagens de erros
+     */
     if(phone !== '') {
       if(phone.length < MIN_PHONE_LENGTH){
         validationFailed = false

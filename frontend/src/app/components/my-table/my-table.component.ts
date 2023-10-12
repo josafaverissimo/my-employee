@@ -21,14 +21,23 @@ export class MyTableComponent implements OnInit {
   }
 
   ngOnChanges() {
+    /**
+     * os dados de this.rows são armazenados em outro lugar para não perder todos os dados
+     * quando o filtro for utilizado
+     */
     this.allRows = this.rows
   }
 
   filterForm() {
-    this.rows = this.allRows.filter(row => row.some(cell => cell.indexOf(this.filterValue) !== -1))
+    this.rows = this.allRows.filter( // retorna o array filtrado baseado no valor do filtro
+      row => row.some( // percorre todo o array para verificar se há pelo menos um que retorne true para a função abaixo
+        cell => cell.indexOf(this.filterValue) !== -1 // verifica se a linha contém o valor do filtro
+      )
+    )
   }
 
   clearFilterForm() {
+    // simplesmente limpa o valor do filtro e reinicia o estado das linhas
     this.filterValue = ''
     this.rows = this.allRows
   }

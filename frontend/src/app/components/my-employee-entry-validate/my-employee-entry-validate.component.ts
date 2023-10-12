@@ -33,6 +33,7 @@ export class MyEmployeeEntryValidateComponent {
     const FIRST_ELEMENT = 0
     const STATUS_COLUMN = 0
 
+    // altera o texto da célula da coluna status
     this.employeeEntryTableRow[FIRST_ELEMENT][STATUS_COLUMN] = text
   }
 
