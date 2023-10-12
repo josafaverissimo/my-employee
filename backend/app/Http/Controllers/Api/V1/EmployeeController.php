@@ -13,9 +13,7 @@ class EmployeeController extends Controller
 {
     use HasValidation;
 
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         return array_reduce(
@@ -31,9 +29,6 @@ class EmployeeController extends Controller
         );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $fields = $request->all();
@@ -80,6 +75,11 @@ class EmployeeController extends Controller
                 'error' => $exception->getMessage()
             ]);
         }
+    }
+
+    public function getByEmployeeName(string $employeeName)
+    {
+        return EmployeeEntry::where('name', $employeeName)->first();
     }
 
     public function validateEntry(Request $request, int $id)
