@@ -1,12 +1,25 @@
 <table>
   <thead>
     <tr>
+      <th *ngIf="!isActionsEmpty">Ação</th>
       <th *ngFor="let column of columns">{{ column }}</th>
     </tr>
   </thead>
 
   <tbody>
     <tr *ngFor="let row of rows">
-      <td *ngFor="let cell of row">{{ cell }}</td>
+      <td *ngIf="!isActionsEmpty" class="table-actions">
+        <div class="flex justify-content-center" style="gap: 4px">
+          <button
+            type="button"
+            class="btn"
+            *ngFor="let action of actions"
+            (click)="action.onClick()"
+          >
+            {{ action.name }}
+          </button>
+        </div>
+      </td>
+      <td *ngFor="let cell of row" [innerHTML]="cell"></td>
     </tr>
 </table>

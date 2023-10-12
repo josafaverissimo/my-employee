@@ -11,7 +11,6 @@ export class MyEmployeeFormComponent {
   /**
    * O objeto abaixo é responsável por manter o estado da diretiva hidden para os campos
    * que necessitam de mensagens extras além de "Este campo é obrigatório"
-   * Somente o campo email tem esse estado
    */
   formInputsValidateExtraMessageHidden = {
     employeeEmail: true,
@@ -67,7 +66,6 @@ export class MyEmployeeFormComponent {
      * [a-zA-Z]*\. - procura por quaisquer caracteres de "a" a "z" e "A" a "Z" da tabela ASCII até encontrar o "."
      * [a-zA-Z] - procura por quaisquer caracteres de "a" a "z" e "A" a "Z" após o "."
      */
-
     const EMAIL_REGEX = /[a-zA-Z]*@[a-zA-Z]*\.[a-zA-Z]*/
 
     return EMAIL_REGEX.test(email)
@@ -77,7 +75,6 @@ export class MyEmployeeFormComponent {
    * A função abaixo verifica se há alguma propriedade
    * do objeto this.knowledge com o valor true
    *
-   * @private
    */
   private isSomeKnowledgeSelected(): boolean {
     /**
@@ -116,7 +113,6 @@ export class MyEmployeeFormComponent {
    * A função abaixo monta o objeto FormData e formata os campos cpf e phone
    * para serem enviados ao backend
    *
-   * @private
    */
   private getFormData(): FormData {
     const formData = new FormData()
@@ -143,8 +139,7 @@ export class MyEmployeeFormComponent {
   }
 
   /**
-   * O método apenas definie uma string vazia para os inputs
-   * @private
+   * O método apenas define uma string vazia para os inputs
    */
   private clearForm() {
     Object.keys(this.formInputsValues).forEach((inputKey: string) => {
@@ -180,7 +175,9 @@ export class MyEmployeeFormComponent {
       employeeCpf: cpf,
       employeePhone: phone
     } = this.formInputsValues
+
     let validationFailed = true
+
     /**
      * O código abaixo apenas verifica se o campo name está vazio
      */

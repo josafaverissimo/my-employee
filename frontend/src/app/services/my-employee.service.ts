@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import {Observable} from "rxjs";
 import {EmployeeEntry} from "../../interfaces/EmployeeEntry";
+import {GenericResponse} from "../../interfaces/GenericResponse";
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,7 @@ export class MyEmployeeService {
   getTableRows(employeesEntries: EmployeeEntry[]): string[][] {
     return employeesEntries.map(
       (employeeEntry: EmployeeEntry): string[] => [
-        employeeEntry.is_valid !== null ? "Validado" : "Não validado",
+        !!employeeEntry.is_valid ? "Validado" : "Não validado",
         employeeEntry.name,
         employeeEntry.email,
         employeeEntry.cpf,
@@ -44,5 +45,13 @@ export class MyEmployeeService {
         employeeEntry.knowledge.join(", ")
       ]
     )
+  }
+
+  validateEmployee(employeeEntryId: number, validOrInvalid: boolean): Observable<GenericResponse> {
+    const endpoint = `${this.api}/employees/validate/${employeeEntryId}`
+
+    return this.httpClient.post<GenericResponse>(endpoint, {
+      'is_valid': Number(validOrInvalid)
+    })
   }
 }

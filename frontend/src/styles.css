@@ -11,6 +11,14 @@ body {
   flex-direction: column;
 }
 
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-self-center {
+  align-self: center;
+}
+
 .p-0 {
   padding: 0
 }
@@ -23,10 +31,15 @@ body {
   width: 20%;
 }
 
-.align-self-center {
-  align-self: center;
-}
-
 .danger {
   color: #BA2935;
+}
+
+.btn {
+  padding: 8px;
+  border-radius: 10px;
+  background-color: #efefef;
+  border: none;
+  font-size: 1.05em;
+  cursor: pointer;
 }
