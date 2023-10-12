@@ -18,7 +18,17 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return EmployeeEntry::orderBy("name")->get();
+        return array_reduce(
+            EmployeeEntry::orderBy("name")->get()->toArray(),
+            function($employeeEntries, $employeeEntry) {
+                $knowledgeDescriptions = array_map(fn(\StdClass $knowledge) =>
+                    $knowledge->description,
+                Knowledge::getByEmployeeEntryId($employeeEntry['id']));
+
+                $employeeEntries[] = [...$employeeEntry, "knowledge" => $knowledgeDescriptions];
+                return $employeeEntries;
+            }, []
+        );
     }
 
     /**
