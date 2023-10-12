@@ -13,6 +13,13 @@ class EmployeeController extends Controller
 {
     use HasValidation;
 
+    private function getEmployeeKnowledgeById(int $employeeEntryId): array
+    {
+        return array_map(
+            fn(\StdClass $knowledge) => $knowledge->description,
+            Knowledge::getByEmployeeEntryId($employeeEntryId)
+        );
+    }
 
     public function index()
     {
@@ -79,7 +86,10 @@ class EmployeeController extends Controller
 
     public function getByEmployeeName(string $employeeName)
     {
-        return EmployeeEntry::where('name', $employeeName)->first();
+        $employeeEntry = EmployeeEntry::where('name', $employeeName)->first()->toArray();
+        $employeeEntry['knowledge'] = $this->getEmployeeKnowledgeById($employeeEntry['id']);
+
+        return $employeeEntry;
     }
 
     public function validateEntry(Request $request, int $id)
