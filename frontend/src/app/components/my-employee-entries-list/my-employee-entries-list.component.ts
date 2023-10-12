@@ -19,7 +19,7 @@ export class MyEmployeeEntriesListComponent {
     this.myEmployeeService.getAll().subscribe(employeesEntries => {
       this.employeeEntriesTableRows = employeesEntries.map(
         (employeeEntry: EmployeeEntry): string[] => [
-          !!employeeEntry.is_valid ? "Validado" : "Não validado",
+          employeeEntry.is_valid !== null ? "Validado" : "Não validado",
           employeeEntry.name,
           employeeEntry.email,
           employeeEntry.cpf,
