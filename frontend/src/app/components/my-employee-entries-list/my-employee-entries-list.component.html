@@ -1,5 +1,9 @@
 <h1>Registros</h1>
 
 <div class="table-wrapper">
-  <app-my-table [columns]="employeeEntriesTableColumns" [rows]="employeeEntriesTableRows" />
+  <app-my-table
+    [columns]="employeeEntriesTableColumns"
+    [rows]="employeeEntriesTableRows"
+    [onClickRow]="bindNavigateToValidEmployeePage"
+  />
 </div>

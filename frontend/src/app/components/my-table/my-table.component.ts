@@ -10,6 +10,7 @@ export class MyTableComponent implements OnInit {
   @Input() columns: string[] = []
   @Input() rows: string[][] = []
   @Input() actions: TableActionButton[] = []
+  @Input() onClickRow = (row: string[]) => {}
   isActionsEmpty: boolean = true
 
   ngOnInit(): void {

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MyEmployeeService } from '../../services/my-employee.service';
 import { EmployeeEntry } from 'src/interfaces/EmployeeEntry';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-my-employee-entries-list',
@@ -10,9 +11,18 @@ import { EmployeeEntry } from 'src/interfaces/EmployeeEntry';
 export class MyEmployeeEntriesListComponent {
   employeeEntriesTableColumns: string[] = []
   employeeEntriesTableRows: string[][] = []
+  bindNavigateToValidEmployeePage = (row: string[]) => {}
 
-  constructor(private myEmployeeService: MyEmployeeService) {
+  constructor(
+    private router: Router,
+    private myEmployeeService: MyEmployeeService
+  ) {
     this.employeeEntriesTableColumns = this.myEmployeeService.getTableColumns()
+
+    this.bindNavigateToValidEmployeePage = (row: string[]) => {
+      const NAME = 1
+      router.navigate([`${row[NAME]}/validar`])
+    }
 
     this.getEmployeeEntriesRows()
   }

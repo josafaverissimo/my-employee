@@ -7,19 +7,20 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let row of rows">
+    <tr *ngFor="let row of rows" (click)="onClickRow(row)">
       <td *ngIf="!isActionsEmpty" class="table-actions">
-        <div class="flex justify-content-center" style="gap: 4px">
-          <button
-            type="button"
-            class="btn"
-            *ngFor="let action of actions"
-            (click)="action.onClick()"
-          >
-            {{ action.name }}
-          </button>
-        </div>
-      </td>
+          <div class="flex justify-content-center" style="gap: 4px">
+            <button
+              type="button"
+              class="btn"
+              *ngFor="let action of actions"
+              (click)="action.onClick()"
+            >
+              {{ action.name }}
+            </button>
+          </div>
+        </td>
+
       <td *ngFor="let cell of row" [innerHTML]="cell"></td>
     </tr>
 </table>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute} from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { MyEmployeeService } from "../../services/my-employee.service";
 import {EmployeeEntry} from "../../../interfaces/EmployeeEntry";
 import {TableActionButton} from "../../../interfaces/TableActionButton";
@@ -22,7 +22,7 @@ export class MyEmployeeEntryValidateComponent {
 
   constructor(
     private myEmployeeService: MyEmployeeService,
-    private route: ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) {
     this.employeeEntryTableColumns = this.myEmployeeService.getTableColumns()
 
@@ -56,7 +56,7 @@ export class MyEmployeeEntryValidateComponent {
 
   private setEmployeeEntryTableRow(): void {
     // @ts-ignore
-    const employeeName: string = this.route.snapshot.paramMap.get('employeeName')
+    const employeeName: string = this.activatedRoute.snapshot.paramMap.get('employeeName')
 
     this.myEmployeeService.getByEmployeeName(employeeName).subscribe((employeeEntry: EmployeeEntry): void => {
       this.employeeName = employeeEntry.name
