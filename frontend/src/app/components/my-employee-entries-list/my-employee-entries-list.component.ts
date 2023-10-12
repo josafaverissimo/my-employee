@@ -8,25 +8,16 @@ import { EmployeeEntry } from 'src/interfaces/EmployeeEntry';
   styleUrls: ['./my-employee-entries-list.component.css']
 })
 export class MyEmployeeEntriesListComponent {
-  employeeEntriesTableColumns: string[] = ['status', 'nome', 'email', 'cpf', 'celular', 'conhecimentos']
+  employeeEntriesTableColumns: string[] = []
   employeeEntriesTableRows: string[][] = []
 
   constructor(private myEmployeeService: MyEmployeeService) {
+    this.employeeEntriesTableColumns = myEmployeeService.getTableColumns()
+
     this.getEmployeeEntriesRows()
   }
 
   private getEmployeeEntriesRows(): void {
-    this.myEmployeeService.getAll().subscribe(employeesEntries => {
-      this.employeeEntriesTableRows = employeesEntries.map(
-        (employeeEntry: EmployeeEntry): string[] => [
-          employeeEntry.is_valid !== null ? "Validado" : "Não validado",
-          employeeEntry.name,
-          employeeEntry.email,
-          employeeEntry.cpf,
-          employeeEntry.phone ?? "",
-          employeeEntry.knowledge.join(", ")
-        ]
-      )
-    })
+    this.myEmployeeService.getAll().subscribe(this.myEmployeeService.getTableRows)
   }
 }
