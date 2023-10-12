@@ -1,0 +1,32 @@
+table {
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+
+table th {
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+table th, td {
+  padding: 16px;
+  width: 16%;
+  border: 1px solid #000;
+}
+
+table thead tr {
+  background: #dfdfdf
+}
+
+table th, td {
+  text-align: start;
+}
+
+table tbody tr:nth-child(even) {
+  background: #efefef;
+}
+
+table tr:hover {
+  cursor: pointer;
+  background: #cfcfcf;
+}

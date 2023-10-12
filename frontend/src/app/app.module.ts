@@ -9,11 +9,15 @@ import { ToastrModule } from "ngx-toastr";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MyEmployeeFormComponent } from './components/my-employee-form/my-employee-form.component';
+import { MyTableComponent } from './components/my-table/my-table.component';
+import { MyEmployeeEntriesListComponent } from './components/my-employee-entries-list/my-employee-entries-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MyEmployeeFormComponent
+    MyEmployeeFormComponent,
+    MyTableComponent,
+    MyEmployeeEntriesListComponent
   ],
   imports: [
     BrowserModule,
