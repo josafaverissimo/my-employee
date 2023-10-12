@@ -16,6 +16,7 @@ class Knowledge extends Model
 
     public static function getByEmployeeEntryId(int $employeeEntryId): array
     {
+        // a query abaixo retorna os knowledge de um usuário através de seu id
         return DB::table('employee_knowledge')
             ->join('employee_entries', 'employee_knowledge.employee_id', '=', 'employee_entries.id')
             ->join('knowledge', 'employee_knowledge.knowledge_id', '=', 'knowledge.id')

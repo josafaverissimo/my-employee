@@ -15,6 +15,11 @@ class EmployeeController extends Controller
 
     private function getEmployeeKnowledgeById(int $employeeEntryId): array
     {
+        /**
+         * O código abaixo pega todos os "knowledge" que estão vinculados
+         * a um registro de "employee_entries" e retorna o valor da coluna description
+         * de cada um dos índices
+         */
         return array_map(
             fn(\StdClass $knowledge) => $knowledge->description,
             Knowledge::getByEmployeeEntryId($employeeEntryId)
@@ -23,12 +28,14 @@ class EmployeeController extends Controller
 
     public function index()
     {
+        /**
+         * O código abaixo adiciona o índice "knowledge" ao array associativo
+         * da linha 36. Esse índice contém todos os "knowledge" do "employee"
+         */
         return array_reduce(
-            EmployeeEntry::orderBy("name")->get()->toArray(),
+            EmployeeEntry::orderBy("name")->get()->toArray(), // todos os registros da tabela employee_entries
             function($employeeEntries, $employeeEntry) {
-                $knowledgeDescriptions = array_map(fn(\StdClass $knowledge) =>
-                    $knowledge->description,
-                Knowledge::getByEmployeeEntryId($employeeEntry['id']));
+                $knowledgeDescriptions = $this->getEmployeeKnowledgeById($employeeEntry['id']);
 
                 $employeeEntries[] = [...$employeeEntry, "knowledge" => $knowledgeDescriptions];
                 return $employeeEntries;
@@ -46,6 +53,11 @@ class EmployeeController extends Controller
             'knowledge' => 'required|min:1|max:3'
         ];
 
+        /**
+         * Verifica se o campo phone foi preenchido, se sim
+         * exige que ele seja preenchido corretamente, se não
+         * ignora o campo, pois ele não é obrigatório.
+         */
         if(!empty($fields['phone'])) $rules['phone'] = "max:15|min:15";
 
         $validation = $this->validation($request->all(), $rules);
@@ -55,15 +67,27 @@ class EmployeeController extends Controller
         $fieldsValidated = $validation["fieldsValidated"];
 
         try {
+            // o nome do colaborador é armazenado em minúsculo
             $fieldsValidated['name'] = mb_convert_case($fieldsValidated['name'], MB_CASE_LOWER);
 
+            /**
+             * o último id inserido é necessário, pois será feito um relacionamento
+             * de cardinalidade N:N entre as tabelas employee_entries e knowledge
+             */
             $lastInsertedEmployeeEntryId = EmployeeEntry::create($fieldsValidated)->id;
+
+
+            //O código abaixo pega os ids dos "knowledge" marcados pelo o usuário.
             $knowledgeIds = array_map(function($knowledgeDescription) {
                 if($knowledgeDescription === 'database') $knowledgeDescription = 'banco de dados';
 
                 return Knowledge::select('id')->where('description', $knowledgeDescription)->first()->id;
-            }, $fieldsValidated['knowledge']);
+            }, $fieldsValidated['knowledge']); // $fieldsValidated['knowledge'] são as marcações do usuário
 
+            /**
+             * O código abaixo insere na tabela employee_knowledge
+             * o id do usuário e o id de knowledge
+             */
             foreach($knowledgeIds as $knowledgeId) {
                 EmployeeKnowledge::create([
                     'employee_id' => $lastInsertedEmployeeEntryId,
