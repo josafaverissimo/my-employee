@@ -16,8 +16,15 @@ export class MyEmployeeEntryValidateComponent {
     private myEmployeeService: MyEmployeeService,
     private route: ActivatedRoute
   ) {
-    const employeeName: string|null = this.route.snapshot.paramMap.get("employeeName")
-
     this.employeeEntryTableColumns = this.myEmployeeService.getTableColumns()
+
+    this.setEmployeeEntryTableRow()
+  }
+
+  private setEmployeeEntryTableRow(): void {
+    // @ts-ignore
+    const employeeName: string = this.route.snapshot.paramMap.get('employeeName')
+
+    this.myEmployeeService.getByEmployeeName(employeeName).subscribe(console.log)
   }
 }

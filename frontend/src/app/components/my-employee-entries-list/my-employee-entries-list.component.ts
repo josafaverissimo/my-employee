@@ -12,12 +12,14 @@ export class MyEmployeeEntriesListComponent {
   employeeEntriesTableRows: string[][] = []
 
   constructor(private myEmployeeService: MyEmployeeService) {
-    this.employeeEntriesTableColumns = myEmployeeService.getTableColumns()
+    this.employeeEntriesTableColumns = this.myEmployeeService.getTableColumns()
 
     this.getEmployeeEntriesRows()
   }
 
   private getEmployeeEntriesRows(): void {
-    this.myEmployeeService.getAll().subscribe(this.myEmployeeService.getTableRows)
+    this.myEmployeeService.getAll().subscribe((employeesEntries: EmployeeEntry[]): void => {
+      this.employeeEntriesTableRows = this.myEmployeeService.getTableRows(employeesEntries)
+    })
   }
 }

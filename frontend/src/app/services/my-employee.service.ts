@@ -11,10 +11,16 @@ export class MyEmployeeService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAll(): Observable<any> {
-    const endpoint = `${this.api}/employees`
+  getAll(): Observable<EmployeeEntry[]> {
+    const endpoint: string = `${this.api}/employees`
 
-    return this.httpClient.get(endpoint)
+    return this.httpClient.get<EmployeeEntry[]>(endpoint)
+  }
+
+  getByEmployeeName(employeeName: string): Observable<EmployeeEntry> {
+    const endpoint: string = `${this.api}/employees/name/${employeeName}`
+
+    return this.httpClient.get<EmployeeEntry>(endpoint)
   }
 
   create(body: FormData): Observable<any> {
