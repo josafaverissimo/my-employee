@@ -18,7 +18,7 @@ export class MyEmployeeService {
   }
 
   getByEmployeeName(employeeName: string): Observable<EmployeeEntry> {
-    const endpoint: string = `${this.api}/employees/name/${employeeName}`
+    const endpoint: string = `${this.api}/employees/${employeeName}`
 
     return this.httpClient.get<EmployeeEntry>(endpoint)
   }

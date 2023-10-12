@@ -25,6 +25,8 @@ export class MyEmployeeEntryValidateComponent {
     // @ts-ignore
     const employeeName: string = this.route.snapshot.paramMap.get('employeeName')
 
-    this.myEmployeeService.getByEmployeeName(employeeName).subscribe(console.log)
+    this.myEmployeeService.getByEmployeeName(employeeName).subscribe((employeeEntry: EmployeeEntry): void => {
+      this.employeeEntryTableRow = this.myEmployeeService.getTableRows([employeeEntry])
+    })
   }
 }
